@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "424153252859",
+    "firebase_url": "https://term-project-cc1a6.firebaseio.com",
+    "project_id": "term-project-cc1a6",
+    "storage_bucket": "term-project-cc1a6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:424153252859:android:91dddf569594ddee8b815e",
+        "android_client_info": {
+          "package_name": "com.alitech.beoneseye"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "424153252859-c65ndpbq84qd6m9n4vav5m1259e2ig9b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0kUsuCxgvo6KSBMq2Ref_5nFPA56DSHY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "424153252859-c65ndpbq84qd6m9n4vav5m1259e2ig9b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
