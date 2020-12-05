@@ -79,7 +79,7 @@ public class camerGallery extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK) {
             //Image Uri will not be null for RESULT_OK
             String fileUri = data.toURI();
-
+            
         } else if (resultCode == ImagePicker.RESULT_ERROR) {
             Toast.makeText(this, "Error Occured!", Toast.LENGTH_SHORT).show();
         } else {
