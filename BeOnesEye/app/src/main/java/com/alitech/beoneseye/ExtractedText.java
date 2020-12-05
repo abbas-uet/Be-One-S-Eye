@@ -12,6 +12,9 @@ public class ExtractedText extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_extracted_text);
+        Intent extractIntent=this.getIntent();
+        String textExtracted=extractIntent.getStringExtra("Text Extracted");
+
     }
 
     @Override
