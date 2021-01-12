@@ -8,9 +8,11 @@
     tools:context=".ExtractedText">
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="354dp"
-        android:layout_height="81dp"
+        android:id="@+id/extractedTextView"
+        android:layout_width="337dp"
+        android:layout_height="97dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:text="Dummy Text Detection Activity, Because No Backgroud Activity is Implemented"
         android:textColor="@color/white_greyish"
         android:textSize="18sp"
