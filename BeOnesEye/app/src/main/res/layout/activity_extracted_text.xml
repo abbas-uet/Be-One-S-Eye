@@ -9,10 +9,12 @@
 
     <TextView
         android:id="@+id/extractedTextView"
-        android:layout_width="337dp"
-        android:layout_height="97dp"
+        android:layout_width="381dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
         android:text="Dummy Text Detection Activity, Because No Backgroud Activity is Implemented"
         android:textColor="@color/white_greyish"
         android:textSize="18sp"

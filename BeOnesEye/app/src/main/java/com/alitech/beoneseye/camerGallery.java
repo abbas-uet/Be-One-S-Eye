@@ -43,8 +43,6 @@ public class camerGallery extends AppCompatActivity {
     Button cameraIntent,galleryIntent,getTextButton,getlandMarkText,getObjectText;
     ImageView imageToTextImage;
     ImageButton imageButton;
-    TextRecognizer recognizer;
-    ImageLabeler labeler;
     TextView aText;
     Uri fileUri;
     @Override
@@ -104,7 +102,7 @@ public class camerGallery extends AppCompatActivity {
         getTextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recognizer= TextRecognition.getClient();
+                TextRecognizer recognizer= TextRecognition.getClient();
                 InputImage image = null;
                 try {
                     image=InputImage.fromFilePath(getApplicationContext(), fileUri);
@@ -154,10 +152,15 @@ public class camerGallery extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<List<ImageLabel>>() {
                             @Override
                             public void onSuccess(List<ImageLabel> labels) {
+                                String textExtracted="";
                                 for (ImageLabel label : labels) {
                                     String text = label.getText();
                                     float confidence = label.getConfidence();
                                     int index = label.getIndex();
+                                    textExtracted=textExtracted+" "+text;
+                                    startActivity(new Intent(camerGallery.this,ExtractedText.class).
+                                            putExtra("Text Extracted",textExtracted));
+                                    finish();
                                 }
                             }
                         })
