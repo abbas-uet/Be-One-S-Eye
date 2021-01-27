@@ -25,6 +25,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.mlkit.vision.barcode.Barcode;
 import com.google.mlkit.vision.barcode.BarcodeScanner;
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
@@ -39,6 +41,8 @@ import com.google.mlkit.vision.text.TextRecognition;
 import com.google.mlkit.vision.text.TextRecognizer;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class camerGallery extends AppCompatActivity {
@@ -122,7 +126,7 @@ public class camerGallery extends AppCompatActivity {
                                         Toast.makeText(camerGallery.this, "Text Extracted Successfully!", Toast.LENGTH_SHORT).show();
                                         String textExtracted=visionText.getText();
                                         startActivity(new Intent(camerGallery.this,ExtractedText.class).
-                                                putExtra("Text Extracted",textExtracted));
+                                                putExtra("Text Extracted",textExtracted).putExtra("action","Text Extraction").putExtra("filepath",fileUri.getPath()));
                                         finish();
                                     }
                                 })
@@ -205,8 +209,11 @@ public class camerGallery extends AppCompatActivity {
                                             break;
                                     }
                                 }
+
                                 startActivity(new Intent(camerGallery.this,ExtractedText.class).
-                                        putExtra("Text Extracted",textExtracted));
+                                        putExtra("Text Extracted",textExtracted).
+                                        putExtra("action","Bar Code Scanning").
+                                        putExtra("filepath",fileUri.getPath()));
                                 finish();
                             }
                         })
@@ -239,10 +246,12 @@ public class camerGallery extends AppCompatActivity {
                                     float confidence = label.getConfidence();
                                     int index = label.getIndex();
                                     textExtracted=textExtracted+" "+text;
-                                    startActivity(new Intent(camerGallery.this,ExtractedText.class).
-                                            putExtra("Text Extracted",textExtracted));
-                                    finish();
                                 }
+                                startActivity(new Intent(camerGallery.this,ExtractedText.class).
+                                        putExtra("Text Extracted",textExtracted).
+                                        putExtra("action","Object Detection").
+                                        putExtra("filepath",fileUri.getPath()));
+                                finish();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -285,5 +294,9 @@ public class camerGallery extends AppCompatActivity {
         imageButton.setVisibility(View.GONE);
         logInSignUp.setVisibility(View.GONE);
         aText.setVisibility(View.GONE);
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 }

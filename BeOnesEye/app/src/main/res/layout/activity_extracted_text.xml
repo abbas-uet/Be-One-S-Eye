@@ -12,29 +12,63 @@
         android:layout_width="121dp"
         android:layout_height="64dp"
         android:background="#3F51B5"
-        android:text="Camera"
+        android:text="Listen Audio"
         android:textColor="@color/white_greyish"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.922" />
+        app:layout_constraintVertical_bias="0.664" />
 
-    <TextView
-        android:id="@+id/extractedTextView"
-        android:layout_width="381dp"
+    <ScrollView
+        android:id="@+id/scrollTextView"
+        android:layout_width="384dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:text="Dummy Text Detection Activity, Because No Backgroud Activity is Implemented"
-        android:textColor="@color/white_greyish"
-        android:textSize="18sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="300dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.483" />
+        app:layout_constraintTop_toTopOf="parent">>
+
+        <TextView
+            android:id="@+id/extractedTextView"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Dummy Text Detection Activity, Because No Backgroud Activity is Implemented"
+            android:textColor="@color/white_greyish"
+            android:textSize="18sp" />
+    </ScrollView>
+
+    <MultiAutoCompleteTextView
+        android:id="@+id/feedbackText"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="Give FeedBack"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white_greyish"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listenAudio"
+        app:layout_constraintVertical_bias="0.05" />
+
+    <Button
+        android:id="@+id/feedBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="Submit FeedBack"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listenAudio"
+        app:layout_constraintVertical_bias="0.21" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -38,6 +38,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import static android.content.ContentValues.TAG;
 
 public class SignUp_Fragment extends Fragment implements OnClickListener {
+	private DBHelper dbHelper;
 	private static View view;
 	private static EditText firstName, emailId, lastName, location,
 			password, confirmPassword;
@@ -54,6 +55,7 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.signup_layout, container, false);
 		mAuth = FirebaseAuth.getInstance();
+		dbHelper=new DBHelper(getContext());
 		initViews();
 		setListeners();
 		return view;
@@ -169,6 +171,15 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
 								myRow.child("Location").setValue(getLocation);
 								Toast.makeText(getActivity(), "Your Have successfully Signed Up", Toast.LENGTH_SHORT).show();
 								startActivity(new Intent(getActivity(),LoginSignUpPage.class));
+								if(dbHelper.insertUSer(user.getUid(),
+										getfirstName+" "+getlastName,
+										getEmailId,
+										getLocation)){
+									Toast.makeText(getContext(), "Saved to DataBase Successfully", Toast.LENGTH_SHORT).show();
+								}else{
+									Toast.makeText(getContext(), "Error While Saving to DataBase", Toast.LENGTH_SHORT).show();
+
+								}
 							} else {
 								new CustomToast().Show_Toast(getActivity(), view,
 										"Sign Up Failed Try Again Later");

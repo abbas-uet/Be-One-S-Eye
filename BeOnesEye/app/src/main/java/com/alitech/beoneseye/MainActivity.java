@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
+        DBHelper dbHelper=new DBHelper(this);
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
