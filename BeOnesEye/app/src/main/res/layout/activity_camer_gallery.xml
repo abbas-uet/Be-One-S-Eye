@@ -12,7 +12,7 @@
         android:layout_width="230dp"
         android:layout_height="50dp"
         android:background="#3F51B5"
-        android:text="LandMark Recognition"
+        android:text="Bar Code Scanner"
         android:textColor="@color/white_greyish"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -25,6 +25,10 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import com.google.mlkit.vision.barcode.Barcode;
+import com.google.mlkit.vision.barcode.BarcodeScanner;
+import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
+import com.google.mlkit.vision.barcode.BarcodeScanning;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.label.ImageLabel;
 import com.google.mlkit.vision.label.ImageLabeler;
@@ -135,6 +139,83 @@ public class camerGallery extends AppCompatActivity {
         getlandMarkText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                InputImage image = null;
+                try {
+                    image = InputImage.fromFilePath(getApplicationContext(), fileUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                BarcodeScannerOptions options =
+                        new BarcodeScannerOptions.Builder()
+                                .setBarcodeFormats(
+                                        Barcode.FORMAT_QR_CODE,
+                                        Barcode.FORMAT_AZTEC)
+                                .build();
+                BarcodeScanner scanner = BarcodeScanning.getClient();
+                Task<List<Barcode>> result = scanner.process(image)
+                        .addOnSuccessListener(new OnSuccessListener<List<Barcode>>() {
+                            @Override
+                            public void onSuccess(List<Barcode> barcodes) {
+                                Toast.makeText(camerGallery.this, "Text Extracted Successfully!", Toast.LENGTH_SHORT).show();
+                                String textExtracted="";
+                                for (Barcode barcode: barcodes) {
+                                    Rect bounds = barcode.getBoundingBox();
+                                    Point[] corners = barcode.getCornerPoints();
+
+                                    String rawValue = barcode.getRawValue();
+
+                                    int valueType = barcode.getValueType();
+
+                                    // See API reference for complete list of supported types
+                                    switch (valueType) {
+                                        case Barcode.TYPE_WIFI:
+                                            String ssid = barcode.getWifi().getSsid();
+                                            String password = barcode.getWifi().getPassword();
+                                            int type = barcode.getWifi().getEncryptionType();
+                                            textExtracted=textExtracted+" A wifi with Id:"+ssid+" and password:"+password;
+                                            break;
+                                        case Barcode.TYPE_URL:
+                                            String title = barcode.getUrl().getTitle();
+                                            String url = barcode.getUrl().getUrl();
+                                            textExtracted=textExtracted+" A Url with Title :"+title+" and Url:"+url;
+                                            break;
+                                        case Barcode.TYPE_SMS:
+                                            textExtracted=textExtracted+" A SMS with Phone Number :"+barcode.getSms().getMessage()+" and Message:"+barcode.getSms().getMessage();
+                                            break;
+                                        case Barcode.TYPE_TEXT:
+                                            textExtracted=textExtracted+" A Text with value :"+barcode.getRawValue();
+                                            break;
+                                        case Barcode.TYPE_CONTACT_INFO:
+                                            textExtracted=textExtracted+" A Contact Info with :"+barcode.getContactInfo().toString();
+                                            break;
+                                        case Barcode.TYPE_DRIVER_LICENSE:
+                                            textExtracted=textExtracted+" A wifi with Id :"+barcode.getDriverLicense().toString();
+                                            break;
+                                        case Barcode.TYPE_GEO:
+                                            textExtracted=textExtracted+" A Geo Location with :"+barcode.getGeoPoint().toString();
+                                            break;
+                                        case Barcode.TYPE_PRODUCT:
+                                            textExtracted=textExtracted+" A Product with credentials :"+barcode.getPhone().toString();
+                                            break;
+                                        case Barcode.TYPE_CALENDAR_EVENT:
+                                            textExtracted=textExtracted+" A Calender Event Info with :"+barcode.getCalendarEvent().toString();
+                                            break;
+                                        case Barcode.TYPE_ISBN:
+                                            textExtracted=textExtracted+" A wifi with Id :"+barcode.getDisplayValue();
+                                            break;
+                                    }
+                                }
+                                startActivity(new Intent(camerGallery.this,ExtractedText.class).
+                                        putExtra("Text Extracted",textExtracted));
+                                finish();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(camerGallery.this, "Error While Scanning "+e.toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
             }
         });
