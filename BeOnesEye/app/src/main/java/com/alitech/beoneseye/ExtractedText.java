@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -64,6 +65,10 @@ public class ExtractedText extends AppCompatActivity {
             public void onClick(View v) {
                 if(currentUser!=null){
                     dbHelper.insertHistory(currentUser.getUid(),action,textExtracted,getCurrentTimeStamp(),filePath,feebackText.getText().toString());
+                    Log.i("QUerry Done","yes Done");
+                    feebackText.setText("");
+                    feebackText.setEnabled(false);
+                    giveFeedback.setEnabled(false);
                 }else{
                     new CustomToast().Show_Toast(ExtractedText.this, v,
                             "Please SIGN UP/LOGIN First.");

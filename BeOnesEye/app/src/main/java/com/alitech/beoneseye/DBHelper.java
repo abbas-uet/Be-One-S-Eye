@@ -67,8 +67,8 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(USER_COLUMN_NAME, name);
         contentValues.put(USER_COLUMN_EMAIL, email);
         contentValues.put(USER_COLUMN_LOCATION, location);
-        db.insert(USER_COLUMN_NAME, null, contentValues);
-        return true;
+        if(db.insert(USER_TABLE_NAME, null, contentValues)!=-1)return true;
+        else return false;
     }
     public boolean insertLogINH (String id, String name, String loginTime, String logoutTime) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -76,8 +76,8 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(LOGINH_COLUMN_ID, id);
         contentValues.put(LOGIN_COLUMN_DATETIME, loginTime);
         contentValues.put(LOGOUT_COLUMN_DATETIME, logoutTime);
-        db.insert(LOGINH_TABLE_NAME, null, contentValues);
-        return true;
+        if(db.insert(LOGINH_TABLE_NAME, null, contentValues)!=-1) return true;
+        else return false;
     }
     public boolean insertHistory (String id, String action, String textExtracted,String actionTime, String imagePath,String feebback) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -88,13 +88,13 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(HISTORY_COLUMN_TEXT, textExtracted);
         contentValues.put(HISTORY_COLUMN_IMAGE_PATH, imagePath);
         contentValues.put(HISTORY_COLUMN_FEEDBACK, feebback);
-        db.insert(HISTORY_TABLE_NAME, null, contentValues);
-        return true;
+        if(db.insert(HISTORY_TABLE_NAME, null, contentValues)!=-1)return true;
+        else return false;
     }
 
     public ArrayList<History> getHistory(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from "+LOGINH_TABLE_NAME+" where id="+id+"", null );
+        Cursor res =  db.rawQuery( "select * from "+LOGINH_TABLE_NAME+" where "+HISTORY_COLUMN_ID+"='"+id+"'", null );
         res.moveToFirst();
         ArrayList<History> array_list = new ArrayList<History>();
         while(res.isAfterLast() == false){
@@ -112,9 +112,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public ArrayList<String> getLogiNH(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from "+LOGINH_TABLE_NAME+" where id="+id+"", null );
+        Cursor res =  db.rawQuery( "select * from "+LOGINH_TABLE_NAME+" where "+LOGINH_COLUMN_ID+"='"+id+"'", null );
         res.moveToFirst();
         ArrayList<String> array_list = new ArrayList<String>();
+        array_list.add(id);
         while(res.isAfterLast() == false){
             array_list.add(res.getString(res.getColumnIndex(LOGIN_COLUMN_DATETIME))+res.getString(res.getColumnIndex(LOGOUT_COLUMN_DATETIME)));
             res.moveToNext();
@@ -124,8 +125,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public ArrayList<String> getuser(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from "+USER_TABLE_NAME+" where id="+id+"", null );
+        Cursor res =  db.rawQuery( "select * from "+USER_TABLE_NAME+" where "+USER_COLUMN_ID+"='"+id+"'", null );
         ArrayList<String> array_list = new ArrayList<String>();
+        array_list.add(id);
         res.moveToFirst();
         array_list.add(res.getString(res.getColumnIndex(USER_COLUMN_NAME)));
         array_list.add(res.getString(res.getColumnIndex(USER_COLUMN_EMAIL)));

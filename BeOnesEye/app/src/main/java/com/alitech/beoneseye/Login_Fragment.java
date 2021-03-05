@@ -1,10 +1,13 @@
 package com.alitech.beoneseye;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.XmlResourceParser;
@@ -49,6 +52,7 @@ public class Login_Fragment extends Fragment implements OnClickListener {
 	private static Animation shakeAnimation;
 	private static FragmentManager fragmentManager;
 	private FirebaseAuth mAuth;
+	DBHelper dbHelper;
 	public Login_Fragment() {
 
 	}
@@ -195,9 +199,18 @@ public class Login_Fragment extends Fragment implements OnClickListener {
 						@Override
 						public void onComplete(@NonNull Task<AuthResult> task) {
 							if (task.isSuccessful()) {
+
 								FirebaseUser user = mAuth.getCurrentUser();
 								Intent intent=new Intent(getActivity(),camerGallery.class);
 								intent.putExtra("FirebaseUser",user.getUid());
+								Date currentTime = Calendar.getInstance().getTime();
+								if(dbHelper.insertLogINH(user.getUid(),user.getDisplayName(),currentTime.toString(),"")){
+									Toast.makeText(getContext(), "Saved to DataBase Successfully", Toast.LENGTH_SHORT).show();
+								}else{
+									Toast.makeText(getContext(), "Error While Saving to DataBase", Toast.LENGTH_SHORT).show();
+								}
+								startActivity(intent);
+
 
 							} else {
 								new CustomToast().Show_Toast(getActivity(), view,
