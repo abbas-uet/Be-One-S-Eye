@@ -211,7 +211,6 @@ public class Login_Fragment extends Fragment implements OnClickListener {
 								}
 								startActivity(intent);
 
-
 							} else {
 								new CustomToast().Show_Toast(getActivity(), view,
 										"Your Email or Password is incorrect.");

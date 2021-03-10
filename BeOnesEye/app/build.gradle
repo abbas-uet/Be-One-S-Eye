@@ -26,6 +26,8 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
     }
 }
 
@@ -48,4 +50,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.github.dhaval2404:imagepicker:1.7.5'
+    implementation 'com.evrencoskun.library:tableview:0.8.9.2'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 }

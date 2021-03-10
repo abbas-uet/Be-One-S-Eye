@@ -3,6 +3,8 @@ package com.alitech.beoneseye;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.List;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -94,30 +96,33 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public ArrayList<History> getHistory(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from "+LOGINH_TABLE_NAME+" where "+HISTORY_COLUMN_ID+"='"+id+"'", null );
+        Cursor res =  db.rawQuery( "select * from "+HISTORY_TABLE_NAME+" where "+HISTORY_COLUMN_ID+"='"+id+"'", null );
         res.moveToFirst();
         ArrayList<History> array_list = new ArrayList<History>();
         while(res.isAfterLast() == false){
-            History obj=new History(id,
-                    res.getString(res.getColumnIndex(HISTORY_COLUMN_DATETIME)),
-                    res.getString(res.getColumnIndex(HISTORY_COLUMN_TEXT)),
-                    res.getString(res.getColumnIndex(HISTORY_COLUMN_IMAGE_PATH)),
-                    res.getString(res.getColumnIndex(HISTORY_COLUMN_FEEDBACK)),
-                    res.getString(res.getColumnIndex(HISTORY_COLUMN_ACTION)));
+            String a,at,te,imp,fb;
+            a=res.getString(res.getColumnIndex(HISTORY_COLUMN_ACTION));
+            at=res.getString(res.getColumnIndex(HISTORY_COLUMN_DATETIME));
+            te=res.getString(res.getColumnIndex(HISTORY_COLUMN_TEXT));
+            imp =res.getString(res.getColumnIndex(HISTORY_COLUMN_IMAGE_PATH));
+            fb=res.getString(res.getColumnIndex(HISTORY_COLUMN_FEEDBACK));
+            History obj=new History(id,at,te,imp,fb,a);
             array_list.add(obj);
             res.moveToNext();
-        }
+            }
         return array_list;
     }
 
-    public ArrayList<String> getLogiNH(String id) {
+    public ArrayList<List<String>> getLogiNH(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "select * from "+LOGINH_TABLE_NAME+" where "+LOGINH_COLUMN_ID+"='"+id+"'", null );
         res.moveToFirst();
-        ArrayList<String> array_list = new ArrayList<String>();
-        array_list.add(id);
+        List<String> aRow = new ArrayList<String>();
+        ArrayList<List<String>> array_list=new ArrayList<List<String>>();
         while(res.isAfterLast() == false){
-            array_list.add(res.getString(res.getColumnIndex(LOGIN_COLUMN_DATETIME))+res.getString(res.getColumnIndex(LOGOUT_COLUMN_DATETIME)));
+            aRow.add(res.getString(res.getColumnIndex(LOGIN_COLUMN_DATETIME)));
+            aRow.add(res.getString(res.getColumnIndex(LOGOUT_COLUMN_DATETIME)));
+            array_list.add(aRow);
             res.moveToNext();
         }
         return array_list;

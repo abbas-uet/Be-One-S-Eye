@@ -22,32 +22,32 @@
         app:layout_constraintVertical_bias="0.023" />
 
     <Button
-        android:id="@+id/gallery3"
-        android:layout_width="171dp"
+        android:id="@+id/activityHistory"
+        android:layout_width="160dp"
+        android:layout_height="45dp"
+        android:background="#3F51B5"
+        android:text="History"
+        android:textColor="@color/white_greyish"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.095"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.204" />
+
+    <Button
+        android:id="@+id/loginHistory"
+        android:layout_width="160dp"
         android:layout_height="45dp"
         android:background="#3F51B5"
         android:text="Login History"
         android:textColor="@color/white_greyish"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.931"
+        app:layout_constraintHorizontal_bias="0.932"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3" />
-
-    <Button
-        android:id="@+id/camera3"
-        android:layout_width="171dp"
-        android:layout_height="45dp"
-        android:background="#3F51B5"
-        android:text="Activity History"
-        android:textColor="@color/white_greyish"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3" />
+        app:layout_constraintVertical_bias="0.204" />
 
     <TextView
         android:id="@+id/textView3"
@@ -108,5 +108,21 @@
         android:textColor="@color/white_greyish"
         app:layout_constraintStart_toEndOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <com.evrencoskun.tableview.TableView
+        android:id="@+id/content_container"
+        android:layout_width="365dp"
+        android:layout_height="515dp"
+
+        android:layout_marginEnd="28dp"
+        app:column_header_height="@dimen/default_column_header_height"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.925"
+        app:row_header_width="@dimen/default_row_header_width"
+        app:selected_color="@color/table_view_default_selected_background_color"
+        app:shadow_color="@color/table_view_default_shadow_background_color"
+        app:unselected_color="@color/table_view_default_unselected_background_color" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
